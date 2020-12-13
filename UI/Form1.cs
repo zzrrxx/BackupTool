@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,16 +13,17 @@ using System.Windows.Forms;
 namespace UI {
   public partial class Form1 : Form {
     private const string DYNAMIC_CONTEXT_MENU_PATH = "DynamicContextMenu.dll";
-    private const string CONFIG_FILENAME           = "MyBackup.config";
+    private const string BACKUP_TOOL_REGISTRY_KEY  = "MyBackupTool";
 
     public Form1() {
       InitializeComponent();
       this.Icon = Icon.FromHandle(Properties.Resources.Backup.GetHicon());
 
-      m_TextBoxGitPath.Text        = GetGitPath();
-      m_TextBoxSvnPath.Text        = GetSvnPath();
-      m_TextBoxBeyondCompPath.Text = GetBeyondComparePath();
-      
+      if (!LoadConfig()) {
+        m_TextBoxGitPath.Text = GetGitPath();
+        m_TextBoxSvnPath.Text = GetSvnPath();
+        m_TextBoxBeyondCompPath.Text = GetBeyondComparePath();
+      }
     }
 
     private void BtnSelectGit_Click(object sender, EventArgs e) {
@@ -121,16 +123,32 @@ namespace UI {
     }
     private void SaveConfig() {
       try {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine(string.Format("Git={0}", m_TextBoxGitPath.Text));
-        sb.AppendLine(string.Format("Svn={0}", m_TextBoxSvnPath.Text));
-        sb.AppendLine(string.Format("BeyondCompare={0}", m_TextBoxBeyondCompPath.Text));
-        sb.AppendLine(string.Format("BackupFolder={0}", m_TextBoxBackupPath.Text));
+        Registry.LocalMachine.DeleteSubKeyTree("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY, false);
+        RegistryKey key = Registry.LocalMachine.CreateSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
 
-        File.WriteAllText(CONFIG_FILENAME, sb.ToString());
+        key.SetValue("Git", m_TextBoxGitPath.Text);
+        key.SetValue("Svn", m_TextBoxSvnPath.Text);
+        key.SetValue("BeyondCompare", m_TextBoxBeyondCompPath.Text);
+        key.SetValue("BackupFolder", m_TextBoxBackupPath.Text);
+
+        key.Close();
       } catch (Exception ex) {
         MessageBox.Show("Failed to save the configuration: " + ex.Message);
       }
+    }
+    private bool LoadConfig() {
+      try {
+        RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
+        if (key == null) return false;
+
+        m_TextBoxGitPath.Text = (string) key.GetValue("Git");
+        m_TextBoxSvnPath.Text = (string) key.GetValue("Svn");
+        m_TextBoxBeyondCompPath.Text = (string) key.GetValue("BeyondCompare");
+        m_TextBoxBackupPath.Text = (string) key.GetValue("BackupFolder");
+      } catch (Exception ex) {
+        return false;
+      }
+      return true;
     }
 
     private string GetRegAsmPath() {
