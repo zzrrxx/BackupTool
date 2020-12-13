@@ -10,17 +10,21 @@ namespace BackupTool {
     /// </summary>
     [STAThread]
     static void Main(string[] args) {
-      string cmd = args.Length == 0 ? "" : args[0];
-      switch (cmd) {
-        case "modified":
-          break;
+      if (args.Length != 3) return;
+      string backupTool = args[0];
+      string backupTypeStr = args[1].ToLower();
+      string dir = args[2];
+      int backupType = BackupForm.BACKUP_TYPE_ALL;
 
-        default:
-          Application.EnableVisualStyles();
-          Application.SetCompatibleTextRenderingDefault(false);
-          Application.Run(new BackupForm(BackupForm.BACKUP_TYPE_ALL));
-          break;
+      switch (backupTypeStr) {
+        case "all":      backupType = BackupForm.BACKUP_TYPE_ALL; break;
+        case "modified": backupType = BackupForm.BACKUP_TYPE_MODIFIED; break;
+        case "manually": backupType = BackupForm.BACKUP_TYPE_MANUALLY; break;
       }
+
+      Application.EnableVisualStyles();
+      Application.SetCompatibleTextRenderingDefault(false);
+      Application.Run(new BackupForm(backupTool, backupType, dir));
     }
   }
 }
