@@ -88,6 +88,7 @@ namespace BackupTool {
       this.m_BtnBackup.TabIndex = 1;
       this.m_BtnBackup.Text = "&Backup";
       this.m_BtnBackup.UseVisualStyleBackColor = true;
+      this.m_BtnBackup.Click += new System.EventHandler(this.BtnBackup_Click);
       // 
       // m_BtnCancel
       // 
