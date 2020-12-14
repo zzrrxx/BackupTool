@@ -2,12 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -28,7 +24,7 @@ namespace BackupTool {
     private bool   m_UseTimestamp  = false;
     private bool   m_DontAskAgain  = false;
 
-    private string m_WorkDir = "";
+    private string m_WorkDir       = "";
 
     public BackupForm(string backupTool, int backupType, string dir) {
       InitializeComponent();
@@ -196,30 +192,45 @@ namespace BackupTool {
         Directory.CreateDirectory(backupTo);
 
         // Start to backup file
-        string src = "";
-        string dst = "";
+        List<string> srcs = new List<string>();
+        List<string> dsts = new List<string>();
         foreach (ListViewItem item in m_ListView.Items) {
           if (!item.Checked) continue;
 
           if (item.Tag is DirectoryInfo) {
-            string relativePath = GetRelativePath(m_WorkDir, ((DirectoryInfo) item.Tag).FullName);
-            Directory.CreateDirectory(Path.Combine(backupTo, relativePath));
+            List<DirectoryInfo> dirInfos = new List<DirectoryInfo>();
+            DirectoryInfo curDirInfo = (DirectoryInfo) item.Tag;
+
+            dirInfos.Add(curDirInfo);
+            while (dirInfos.Count > 0) {
+              DirectoryInfo dirInfo = dirInfos[0];
+              dirInfos.RemoveAt(0);
+
+              FileInfo[] fileInfos = dirInfo.GetFiles();
+              foreach (FileInfo fi in fileInfos) {
+                srcs.Add(fi.FullName);
+                dsts.Add(Path.Combine(backupTo, GetRelativePath(m_WorkDir, fi.FullName)));
+              }
+
+              dirInfos.AddRange(dirInfo.GetDirectories());
+            }
           } else {
             string sourcePath = ((FileInfo) item.Tag).FullName;
-            string relativePath = GetRelativePath(m_WorkDir, sourcePath);
-            if (src == "") {
-              src = sourcePath;
-              dst = Path.Combine(backupTo, relativePath);
-            } else { 
-              src += "\0" + sourcePath;
-              dst += "\0" + Path.Combine(backupTo, relativePath);
-            } 
+            srcs.Add(sourcePath);
+            dsts.Add(Path.Combine(backupTo, GetRelativePath(m_WorkDir, sourcePath)));
           }
         }
 
+        string src = "";
+        string dst = "";
+        for (int i = 0; i < srcs.Count; i++) {
+          src += (srcs[i] + "\0");
+          dst += (dsts[i] + "\0");
+        }
+
         Shell.ShFile.wFunc = Shell.FO_Func.FO_COPY;
-        Shell.ShFile.pFrom = src + "\0\0";
-        Shell.ShFile.pTo = dst + "\0\0";
+        Shell.ShFile.pFrom = src + "\0";
+        Shell.ShFile.pTo = dst + "\0";
         Shell.ShFile.fFlags = (ushort) (Shell.FILEOP_FLAGS.FOF_NOCONFIRMMKDIR | Shell.FILEOP_FLAGS.FOF_MULTIDESTFILES);
         int result = Shell.SHFileOperation(ref Shell.ShFile);
         if (Shell.ShFile.fAnyOperationsAborted) throw new Exception("Operation aborted");
