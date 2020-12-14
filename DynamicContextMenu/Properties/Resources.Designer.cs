@@ -63,19 +63,9 @@ namespace DynamicContextMenu.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap file_icon {
+        internal static System.Drawing.Bitmap Backup {
             get {
-                object obj = ResourceManager.GetObject("file_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Folder_icon {
-            get {
-                object obj = ResourceManager.GetObject("Folder_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Backup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

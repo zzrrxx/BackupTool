@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -130,6 +131,7 @@ namespace UI {
         key.SetValue("Svn", m_TextBoxSvnPath.Text);
         key.SetValue("BeyondCompare", m_TextBoxBeyondCompPath.Text);
         key.SetValue("BackupFolder", m_TextBoxBackupPath.Text);
+        key.SetValue("Bin", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
         key.Close();
       } catch (Exception ex) {

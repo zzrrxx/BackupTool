@@ -71,15 +71,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\file-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Folder-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="SharpShell">
       <Version>2.7.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backups.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
