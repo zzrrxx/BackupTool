@@ -117,15 +117,15 @@ namespace UI {
         return false;
       } finally {
         if (Directory.Exists(testFolderName)) {
-          try { Directory.Delete(testFolderName); } catch (Exception ex) { }
+          try { Directory.Delete(testFolderName); } catch (Exception) { }
         }
       }
       return true;
     }
     private void SaveConfig() {
       try {
-        Registry.LocalMachine.DeleteSubKeyTree("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY, false);
-        RegistryKey key = Registry.LocalMachine.CreateSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
+        Registry.CurrentUser.DeleteSubKeyTree("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY, false);
+        RegistryKey key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
 
         key.SetValue("Git", m_TextBoxGitPath.Text);
         key.SetValue("Svn", m_TextBoxSvnPath.Text);
@@ -140,14 +140,14 @@ namespace UI {
     }
     private bool LoadConfig() {
       try {
-        RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
+        RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
         if (key == null) return false;
 
         m_TextBoxGitPath.Text = (string) key.GetValue("Git");
         m_TextBoxSvnPath.Text = (string) key.GetValue("Svn");
         m_TextBoxBeyondCompPath.Text = (string) key.GetValue("BeyondCompare");
         m_TextBoxBackupPath.Text = (string) key.GetValue("BackupFolder");
-      } catch (Exception ex) {
+      } catch (Exception) {
         return false;
       }
       return true;

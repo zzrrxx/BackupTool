@@ -171,7 +171,7 @@ namespace BackupTool {
             m_UseTimestamp = dialog.UseTimestamp;
 
             try {
-              RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY, true);
+              RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY, true);
               key.SetValue("UseTimestamp", m_UseTimestamp ? 1 : 0);
               key.SetValue("DontAskMeAgain", m_DontAskAgain ? 1 : 0);
               key.Close();
@@ -254,7 +254,7 @@ namespace BackupTool {
 
     private void LoadConfig() {
       // thrown all exception out, so we can show an error message box
-      RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
+      RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
       if (key == null) throw new Exception("Registry key is missing");
 
       m_Git = (string)key.GetValue("Git");

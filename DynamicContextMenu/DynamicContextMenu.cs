@@ -81,7 +81,7 @@ namespace DynamicContextMenu {
 
       string bin = "";
       try {
-        RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
+        RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\" + BACKUP_TOOL_REGISTRY_KEY);
         bin = (string)key.GetValue("Bin");
       } catch (Exception ex) {
         MessageBox.Show(ex.Message);
