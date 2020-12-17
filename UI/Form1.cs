@@ -163,6 +163,7 @@ namespace UI {
       if (netDir.Exists) {
         DirectoryInfo[] netVerDirs = netDir.GetDirectories();
         foreach (DirectoryInfo curVerDir in netVerDirs) {
+          if (!curVerDir.Name.StartsWith("v4")) continue;
           FileInfo[] files = curVerDir.GetFiles("*.exe");
           foreach (FileInfo fi in files) {
             if (fi.Name.ToLower().Equals("regasm.exe")) return fi.FullName;
@@ -203,6 +204,8 @@ namespace UI {
       DriveInfo[] drives = DriveInfo.GetDrives();
       foreach (DriveInfo d in drives) { 
         string path = string.Format("{0}Program Files\\Beyond Compare 4\\BCompare.exe", d.Name);
+        if (File.Exists(path)) return path;
+        path = string.Format("{0}Program Files (x86)\\Beyond Compare 4\\BCompare.exe", d.Name);
         if (File.Exists(path)) return path;
       }
       return "Not founded";
