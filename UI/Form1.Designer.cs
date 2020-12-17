@@ -43,9 +43,9 @@ namespace UI {
       // 
       // m_BtnInstall
       // 
-      this.m_BtnInstall.Location = new System.Drawing.Point(241, 158);
+      this.m_BtnInstall.Location = new System.Drawing.Point(241, 171);
       this.m_BtnInstall.Name = "m_BtnInstall";
-      this.m_BtnInstall.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnInstall.Size = new System.Drawing.Size(75, 25);
       this.m_BtnInstall.TabIndex = 0;
       this.m_BtnInstall.Text = "&Install";
       this.m_BtnInstall.UseVisualStyleBackColor = true;
@@ -53,9 +53,9 @@ namespace UI {
       // 
       // m_BtnUninstall
       // 
-      this.m_BtnUninstall.Location = new System.Drawing.Point(322, 158);
+      this.m_BtnUninstall.Location = new System.Drawing.Point(322, 171);
       this.m_BtnUninstall.Name = "m_BtnUninstall";
-      this.m_BtnUninstall.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnUninstall.Size = new System.Drawing.Size(75, 25);
       this.m_BtnUninstall.TabIndex = 1;
       this.m_BtnUninstall.Text = "&Uninstall";
       this.m_BtnUninstall.UseVisualStyleBackColor = true;
@@ -64,24 +64,24 @@ namespace UI {
       // m_LblGitPath
       // 
       this.m_LblGitPath.AutoSize = true;
-      this.m_LblGitPath.Location = new System.Drawing.Point(10, 32);
+      this.m_LblGitPath.Location = new System.Drawing.Point(10, 35);
       this.m_LblGitPath.Name = "m_LblGitPath";
-      this.m_LblGitPath.Size = new System.Drawing.Size(29, 12);
+      this.m_LblGitPath.Size = new System.Drawing.Size(23, 13);
       this.m_LblGitPath.TabIndex = 2;
       this.m_LblGitPath.Text = "Git:";
       // 
       // m_TextBoxGitPath
       // 
-      this.m_TextBoxGitPath.Location = new System.Drawing.Point(111, 29);
+      this.m_TextBoxGitPath.Location = new System.Drawing.Point(111, 31);
       this.m_TextBoxGitPath.Name = "m_TextBoxGitPath";
-      this.m_TextBoxGitPath.Size = new System.Drawing.Size(286, 21);
+      this.m_TextBoxGitPath.Size = new System.Drawing.Size(286, 20);
       this.m_TextBoxGitPath.TabIndex = 3;
       // 
       // m_BtnSelectGit
       // 
-      this.m_BtnSelectGit.Location = new System.Drawing.Point(403, 27);
+      this.m_BtnSelectGit.Location = new System.Drawing.Point(403, 29);
       this.m_BtnSelectGit.Name = "m_BtnSelectGit";
-      this.m_BtnSelectGit.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnSelectGit.Size = new System.Drawing.Size(75, 25);
       this.m_BtnSelectGit.TabIndex = 4;
       this.m_BtnSelectGit.Text = "Browser...";
       this.m_BtnSelectGit.UseVisualStyleBackColor = true;
@@ -89,9 +89,9 @@ namespace UI {
       // 
       // m_BtnSelectBeyondComp
       // 
-      this.m_BtnSelectBeyondComp.Location = new System.Drawing.Point(403, 85);
+      this.m_BtnSelectBeyondComp.Location = new System.Drawing.Point(403, 92);
       this.m_BtnSelectBeyondComp.Name = "m_BtnSelectBeyondComp";
-      this.m_BtnSelectBeyondComp.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnSelectBeyondComp.Size = new System.Drawing.Size(75, 25);
       this.m_BtnSelectBeyondComp.TabIndex = 7;
       this.m_BtnSelectBeyondComp.Text = "Browser...";
       this.m_BtnSelectBeyondComp.UseVisualStyleBackColor = true;
@@ -99,25 +99,25 @@ namespace UI {
       // 
       // m_TextBoxBeyondCompPath
       // 
-      this.m_TextBoxBeyondCompPath.Location = new System.Drawing.Point(111, 87);
+      this.m_TextBoxBeyondCompPath.Location = new System.Drawing.Point(111, 94);
       this.m_TextBoxBeyondCompPath.Name = "m_TextBoxBeyondCompPath";
-      this.m_TextBoxBeyondCompPath.Size = new System.Drawing.Size(286, 21);
+      this.m_TextBoxBeyondCompPath.Size = new System.Drawing.Size(286, 20);
       this.m_TextBoxBeyondCompPath.TabIndex = 6;
       // 
       // m_LblComparePath
       // 
       this.m_LblComparePath.AutoSize = true;
-      this.m_LblComparePath.Location = new System.Drawing.Point(10, 90);
+      this.m_LblComparePath.Location = new System.Drawing.Point(10, 98);
       this.m_LblComparePath.Name = "m_LblComparePath";
-      this.m_LblComparePath.Size = new System.Drawing.Size(95, 12);
+      this.m_LblComparePath.Size = new System.Drawing.Size(90, 13);
       this.m_LblComparePath.TabIndex = 5;
       this.m_LblComparePath.Text = "Beyond compare:";
       // 
       // m_BtnSelectBackupFolder
       // 
-      this.m_BtnSelectBackupFolder.Location = new System.Drawing.Point(403, 114);
+      this.m_BtnSelectBackupFolder.Location = new System.Drawing.Point(403, 124);
       this.m_BtnSelectBackupFolder.Name = "m_BtnSelectBackupFolder";
-      this.m_BtnSelectBackupFolder.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnSelectBackupFolder.Size = new System.Drawing.Size(75, 25);
       this.m_BtnSelectBackupFolder.TabIndex = 10;
       this.m_BtnSelectBackupFolder.Text = "Browser...";
       this.m_BtnSelectBackupFolder.UseVisualStyleBackColor = true;
@@ -125,25 +125,25 @@ namespace UI {
       // 
       // m_TextBoxBackupPath
       // 
-      this.m_TextBoxBackupPath.Location = new System.Drawing.Point(111, 114);
+      this.m_TextBoxBackupPath.Location = new System.Drawing.Point(111, 124);
       this.m_TextBoxBackupPath.Name = "m_TextBoxBackupPath";
-      this.m_TextBoxBackupPath.Size = new System.Drawing.Size(286, 21);
+      this.m_TextBoxBackupPath.Size = new System.Drawing.Size(286, 20);
       this.m_TextBoxBackupPath.TabIndex = 9;
       // 
       // m_LblBackupFolder
       // 
       this.m_LblBackupFolder.AutoSize = true;
-      this.m_LblBackupFolder.Location = new System.Drawing.Point(10, 117);
+      this.m_LblBackupFolder.Location = new System.Drawing.Point(10, 127);
       this.m_LblBackupFolder.Name = "m_LblBackupFolder";
-      this.m_LblBackupFolder.Size = new System.Drawing.Size(89, 12);
+      this.m_LblBackupFolder.Size = new System.Drawing.Size(79, 13);
       this.m_LblBackupFolder.TabIndex = 8;
       this.m_LblBackupFolder.Text = "Backup Folder:";
       // 
       // m_BtnSelectSvn
       // 
-      this.m_BtnSelectSvn.Location = new System.Drawing.Point(403, 56);
+      this.m_BtnSelectSvn.Location = new System.Drawing.Point(403, 61);
       this.m_BtnSelectSvn.Name = "m_BtnSelectSvn";
-      this.m_BtnSelectSvn.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnSelectSvn.Size = new System.Drawing.Size(75, 25);
       this.m_BtnSelectSvn.TabIndex = 13;
       this.m_BtnSelectSvn.Text = "Browser...";
       this.m_BtnSelectSvn.UseVisualStyleBackColor = true;
@@ -151,25 +151,25 @@ namespace UI {
       // 
       // m_TextBoxSvnPath
       // 
-      this.m_TextBoxSvnPath.Location = new System.Drawing.Point(111, 58);
+      this.m_TextBoxSvnPath.Location = new System.Drawing.Point(111, 63);
       this.m_TextBoxSvnPath.Name = "m_TextBoxSvnPath";
-      this.m_TextBoxSvnPath.Size = new System.Drawing.Size(286, 21);
+      this.m_TextBoxSvnPath.Size = new System.Drawing.Size(286, 20);
       this.m_TextBoxSvnPath.TabIndex = 12;
       // 
       // m_LblSvnPath
       // 
       this.m_LblSvnPath.AutoSize = true;
-      this.m_LblSvnPath.Location = new System.Drawing.Point(10, 61);
+      this.m_LblSvnPath.Location = new System.Drawing.Point(10, 66);
       this.m_LblSvnPath.Name = "m_LblSvnPath";
-      this.m_LblSvnPath.Size = new System.Drawing.Size(29, 12);
+      this.m_LblSvnPath.Size = new System.Drawing.Size(32, 13);
       this.m_LblSvnPath.TabIndex = 11;
       this.m_LblSvnPath.Text = "SVN:";
       // 
       // m_BtnOK
       // 
-      this.m_BtnOK.Location = new System.Drawing.Point(403, 158);
+      this.m_BtnOK.Location = new System.Drawing.Point(403, 171);
       this.m_BtnOK.Name = "m_BtnOK";
-      this.m_BtnOK.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnOK.Size = new System.Drawing.Size(75, 25);
       this.m_BtnOK.TabIndex = 14;
       this.m_BtnOK.Text = "&OK";
       this.m_BtnOK.UseVisualStyleBackColor = true;
@@ -177,9 +177,9 @@ namespace UI {
       // 
       // Form1
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(490, 193);
+      this.ClientSize = new System.Drawing.Size(490, 209);
       this.Controls.Add(this.m_BtnOK);
       this.Controls.Add(this.m_BtnSelectSvn);
       this.Controls.Add(this.m_TextBoxSvnPath);
@@ -196,6 +196,7 @@ namespace UI {
       this.Controls.Add(this.m_BtnUninstall);
       this.Controls.Add(this.m_BtnInstall);
       this.Name = "Form1";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Backup Configuration";
       this.ResumeLayout(false);
       this.PerformLayout();

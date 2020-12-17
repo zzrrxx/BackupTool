@@ -82,10 +82,12 @@ namespace BackupTool {
         }
 
         case BACKUP_TYPE_MODIFIED: {
+            m_LblIgnoreDeleted.ForeColor = System.Drawing.Color.Red;
+            m_LblIgnoreDeleted.Visible = true;
             if (backupTool.ToLower() == "git") { 
               SetupGitModifiedListView(m_WorkDir);
             } else if (backupTool.ToLower() == "svn") {
-              
+              SetupSvnModifiedListView(m_WorkDir);
             }
             break;
           }
@@ -150,6 +152,77 @@ namespace BackupTool {
         DirectoryInfo dirInfo = new DirectoryInfo(Path.Combine(dir, name));
         item.Tag = dirInfo;
         item.SubItems.Add(name.Remove(name.Length - 1));
+        item.SubItems.Add(dirInfo.LastWriteTimeUtc.ToString("yyyy/MM/dd HH:mm"));
+        item.SubItems.Add("Folder");
+        item.SubItems.Add("");
+      } else {
+        FileInfo fileInfo = new FileInfo(Path.Combine(dir, name));
+        item.Tag = fileInfo;
+        item.SubItems.Add(name);
+        item.SubItems.Add(fileInfo.LastWriteTimeUtc.ToString("yyyy/MM/dd HH:mm"));
+        item.SubItems.Add("File");
+        item.SubItems.Add(fileInfo.Length + "");
+      }
+      return item;
+    }
+
+    private void SetupSvnModifiedListView(string dir) {
+      StringBuilder standardOutput = new StringBuilder();
+      StringBuilder standardError = new StringBuilder();
+
+      Process process = new Process();
+      process.StartInfo.WorkingDirectory = dir;
+      process.StartInfo.RedirectStandardError = true;
+      process.StartInfo.RedirectStandardOutput = true;
+      process.StartInfo.FileName = m_Svn;
+      process.StartInfo.Arguments = "status";
+      process.StartInfo.UseShellExecute = false;
+      process.OutputDataReceived += (o, e) => {
+        if (e.Data != null) standardOutput.AppendLine(e.Data);
+      };
+      process.ErrorDataReceived += (o, e) => {
+        if (e.Data != null) standardError.AppendLine(e.Data);
+      };
+      process.Start();
+      process.BeginErrorReadLine();
+      process.BeginOutputReadLine();
+
+      process.WaitForExit();
+      if (process.ExitCode == 0) {
+        string[] entries = standardOutput.ToString().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        m_ListView.Groups.Add(new ListViewGroup("Versioned"));
+        m_ListView.Groups.Add(new ListViewGroup("Unversioned"));
+        foreach (string entry in entries) {
+          ListViewItem item = GenSvnListViewItem(dir, entry);
+          if (item == null) continue;
+
+          if (item.Checked) item.Group = m_ListView.Groups[0];
+          else item.Group = m_ListView.Groups[1];
+          m_ListView.Items.Add(item);
+        }
+
+        m_ListView.ListViewItemSorter = new ListViewFileTypeSorter();
+        m_ListView.Sort();
+
+        m_ShowSvnDiffCtxmenu = true;
+        m_ShowBCompDiffCtxmenu = true;
+
+      } else {
+        MessageBox.Show("Failed to list modified files: error code: " + process.ExitCode + ", error message: " + standardError.ToString());
+      }
+    }
+    private ListViewItem GenSvnListViewItem(string dir, string entry) {
+      string name = entry.Substring(8);
+      if (entry.StartsWith("!")) return null; // ignore deleted files
+      bool isDir = Directory.Exists(Path.Combine(dir, name));
+      bool isModified = entry.StartsWith("M       ");
+
+      ListViewItem item = new ListViewItem();
+      item.Checked = isModified;
+      if (isDir) {
+        DirectoryInfo dirInfo = new DirectoryInfo(Path.Combine(dir, name));
+        item.Tag = dirInfo;
+        item.SubItems.Add(dirInfo.Name);
         item.SubItems.Add(dirInfo.LastWriteTimeUtc.ToString("yyyy/MM/dd HH:mm"));
         item.SubItems.Add("Folder");
         item.SubItems.Add("");

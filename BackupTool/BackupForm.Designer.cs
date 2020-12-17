@@ -36,6 +36,7 @@ namespace BackupTool {
       this.m_ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.m_CtxMenuGitDiff = new System.Windows.Forms.ToolStripMenuItem();
       this.m_CtxMenuBCompDiff = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_LblIgnoreDeleted = new System.Windows.Forms.Label();
       this.m_ContextMenuStrip.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -51,9 +52,9 @@ namespace BackupTool {
       this.m_ListView.FullRowSelect = true;
       this.m_ListView.GridLines = true;
       this.m_ListView.HideSelection = false;
-      this.m_ListView.Location = new System.Drawing.Point(12, 12);
+      this.m_ListView.Location = new System.Drawing.Point(12, 13);
       this.m_ListView.Name = "m_ListView";
-      this.m_ListView.Size = new System.Drawing.Size(776, 415);
+      this.m_ListView.Size = new System.Drawing.Size(776, 449);
       this.m_ListView.TabIndex = 0;
       this.m_ListView.UseCompatibleStateImageBehavior = false;
       this.m_ListView.View = System.Windows.Forms.View.Details;
@@ -88,9 +89,9 @@ namespace BackupTool {
       // 
       // m_BtnBackup
       // 
-      this.m_BtnBackup.Location = new System.Drawing.Point(612, 433);
+      this.m_BtnBackup.Location = new System.Drawing.Point(612, 469);
       this.m_BtnBackup.Name = "m_BtnBackup";
-      this.m_BtnBackup.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnBackup.Size = new System.Drawing.Size(75, 25);
       this.m_BtnBackup.TabIndex = 1;
       this.m_BtnBackup.Text = "&Backup";
       this.m_BtnBackup.UseVisualStyleBackColor = true;
@@ -99,9 +100,9 @@ namespace BackupTool {
       // m_BtnCancel
       // 
       this.m_BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.m_BtnCancel.Location = new System.Drawing.Point(703, 433);
+      this.m_BtnCancel.Location = new System.Drawing.Point(703, 469);
       this.m_BtnCancel.Name = "m_BtnCancel";
-      this.m_BtnCancel.Size = new System.Drawing.Size(75, 23);
+      this.m_BtnCancel.Size = new System.Drawing.Size(75, 25);
       this.m_BtnCancel.TabIndex = 2;
       this.m_BtnCancel.Text = "&Cancel";
       this.m_BtnCancel.UseVisualStyleBackColor = true;
@@ -113,7 +114,7 @@ namespace BackupTool {
             this.m_CtxMenuGitDiff,
             this.m_CtxMenuBCompDiff});
       this.m_ContextMenuStrip.Name = "m_ContextMenuStrip";
-      this.m_ContextMenuStrip.Size = new System.Drawing.Size(233, 70);
+      this.m_ContextMenuStrip.Size = new System.Drawing.Size(233, 48);
       // 
       // m_CtxMenuGitDiff
       // 
@@ -127,21 +128,34 @@ namespace BackupTool {
       this.m_CtxMenuBCompDiff.Size = new System.Drawing.Size(232, 22);
       this.m_CtxMenuBCompDiff.Text = "Show diff by BeyondCompare";
       // 
+      // m_LblIgnoreDeleted
+      // 
+      this.m_LblIgnoreDeleted.AutoSize = true;
+      this.m_LblIgnoreDeleted.Location = new System.Drawing.Point(12, 475);
+      this.m_LblIgnoreDeleted.Name = "m_LblIgnoreDeleted";
+      this.m_LblIgnoreDeleted.Size = new System.Drawing.Size(178, 13);
+      this.m_LblIgnoreDeleted.TabIndex = 3;
+      this.m_LblIgnoreDeleted.Text = "!!!Deleted items will not be backup!!!";
+      this.m_LblIgnoreDeleted.Visible = false;
+      // 
       // BackupForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_BtnCancel;
-      this.ClientSize = new System.Drawing.Size(800, 466);
+      this.ClientSize = new System.Drawing.Size(800, 505);
+      this.Controls.Add(this.m_LblIgnoreDeleted);
       this.Controls.Add(this.m_BtnCancel);
       this.Controls.Add(this.m_BtnBackup);
       this.Controls.Add(this.m_ListView);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.MaximizeBox = false;
       this.Name = "BackupForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Backup";
       this.m_ContextMenuStrip.ResumeLayout(false);
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
@@ -158,6 +172,7 @@ namespace BackupTool {
     private System.Windows.Forms.ContextMenuStrip m_ContextMenuStrip;
     private System.Windows.Forms.ToolStripMenuItem m_CtxMenuGitDiff;
     private System.Windows.Forms.ToolStripMenuItem m_CtxMenuBCompDiff;
+    private System.Windows.Forms.Label m_LblIgnoreDeleted;
   }
 }
 
