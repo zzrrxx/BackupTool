@@ -24,7 +24,10 @@ namespace BackupTool {
     private bool   m_UseTimestamp  = false;
     private bool   m_DontAskAgain  = false;
 
-    private string m_WorkDir       = "";
+    private string m_WorkDir               = "";
+    private bool   m_ShowGitDiffCtxMenu    = false;
+    private bool   m_ShowSvnDiffCtxmenu    = false;
+    private bool   m_ShowBCompDiffCtxmenu  = false;
 
     public BackupForm(string backupTool, int backupType, string dir) {
       InitializeComponent();
@@ -127,6 +130,9 @@ namespace BackupTool {
 
         m_ListView.ListViewItemSorter = new ListViewFileTypeSorter();
         m_ListView.Sort();
+
+        m_ShowGitDiffCtxMenu = true;
+        m_ShowBCompDiffCtxmenu = true;
 
       } else {
         MessageBox.Show("Failed to list modified files: error code: " + process.ExitCode + ", error message: " + standardError.ToString());
@@ -286,6 +292,22 @@ namespace BackupTool {
         ListViewItem item1 = (ListViewItem)x;
         ListViewItem item2 = (ListViewItem)y;
         return item1.SubItems[3].Text.CompareTo(item2.SubItems[3].Text) * -1; // Folder first
+      }
+    }
+
+    private void ListView_MouseClick(object sender, MouseEventArgs e) {
+      if (!m_ShowGitDiffCtxMenu && !m_ShowSvnDiffCtxmenu) return;
+
+      if (m_ListView.FocusedItem.Group.Header == "Unversioned") return;
+
+      if (!m_BeyondCompare.EndsWith(".exe")) m_ContextMenuStrip.Items.Remove(m_CtxMenuBCompDiff);
+      if (m_ShowGitDiffCtxMenu) m_CtxMenuGitDiff.Text = "Show diff by Git";
+      if (m_ShowSvnDiffCtxmenu) m_CtxMenuGitDiff.Text = "Show diff by Svn";
+
+      if (e.Button == MouseButtons.Right) {
+        if (m_ListView.FocusedItem.Bounds.Contains(e.Location)) {
+          m_ContextMenuStrip.Show(Cursor.Position);
+        }
       }
     }
   }

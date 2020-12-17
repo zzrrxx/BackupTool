@@ -24,6 +24,7 @@ namespace BackupTool {
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+      this.components = new System.ComponentModel.Container();
       this.m_ListView = new System.Windows.Forms.ListView();
       this.m_ColSelected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.m_ColName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -32,6 +33,10 @@ namespace BackupTool {
       this.m_ColSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.m_BtnBackup = new System.Windows.Forms.Button();
       this.m_BtnCancel = new System.Windows.Forms.Button();
+      this.m_ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.m_CtxMenuGitDiff = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_CtxMenuBCompDiff = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_ContextMenuStrip.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_ListView
@@ -52,6 +57,7 @@ namespace BackupTool {
       this.m_ListView.TabIndex = 0;
       this.m_ListView.UseCompatibleStateImageBehavior = false;
       this.m_ListView.View = System.Windows.Forms.View.Details;
+      this.m_ListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseClick);
       // 
       // m_ColSelected
       // 
@@ -101,6 +107,26 @@ namespace BackupTool {
       this.m_BtnCancel.UseVisualStyleBackColor = true;
       this.m_BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
       // 
+      // m_ContextMenuStrip
+      // 
+      this.m_ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.m_CtxMenuGitDiff,
+            this.m_CtxMenuBCompDiff});
+      this.m_ContextMenuStrip.Name = "m_ContextMenuStrip";
+      this.m_ContextMenuStrip.Size = new System.Drawing.Size(233, 70);
+      // 
+      // m_CtxMenuGitDiff
+      // 
+      this.m_CtxMenuGitDiff.Name = "m_CtxMenuGitDiff";
+      this.m_CtxMenuGitDiff.Size = new System.Drawing.Size(232, 22);
+      this.m_CtxMenuGitDiff.Text = "Show diff by";
+      // 
+      // m_CtxMenuBCompDiff
+      // 
+      this.m_CtxMenuBCompDiff.Name = "m_CtxMenuBCompDiff";
+      this.m_CtxMenuBCompDiff.Size = new System.Drawing.Size(232, 22);
+      this.m_CtxMenuBCompDiff.Text = "Show diff by BeyondCompare";
+      // 
       // BackupForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -114,6 +140,7 @@ namespace BackupTool {
       this.MaximizeBox = false;
       this.Name = "BackupForm";
       this.Text = "Backup";
+      this.m_ContextMenuStrip.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -128,6 +155,9 @@ namespace BackupTool {
     private System.Windows.Forms.ColumnHeader m_ColDateModified;
     private System.Windows.Forms.ColumnHeader m_ColSize;
     private System.Windows.Forms.ColumnHeader m_ColType;
+    private System.Windows.Forms.ContextMenuStrip m_ContextMenuStrip;
+    private System.Windows.Forms.ToolStripMenuItem m_CtxMenuGitDiff;
+    private System.Windows.Forms.ToolStripMenuItem m_CtxMenuBCompDiff;
   }
 }
 
