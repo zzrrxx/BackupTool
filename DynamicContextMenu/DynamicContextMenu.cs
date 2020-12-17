@@ -24,7 +24,7 @@ namespace DynamicContextMenu {
 
     protected override bool CanShowMenu() {
       if (SelectedItemPaths.Count() != 1) return false;
-      return GitUtils.isGitDir(SelectedItemPaths.First());
+      return isGitDir(SelectedItemPaths.First()) || isSvnDir(SelectedItemPaths.First());
     }
 
     protected override ContextMenuStrip CreateMenu() {
@@ -39,10 +39,8 @@ namespace DynamicContextMenu {
       };
       backup.Click += (o, e) => {
         string workDir = SelectedItemPaths.First();
-        bool isGit = GitUtils.isGitDir(workDir);
-        if (isGit) {
-          CallBackupTool("git manually " + workDir);
-        }
+        bool isGit = isGitDir(workDir);
+        CallBackupTool((isGit ? "git" : "svn") + " manually " + workDir);
       };
 
       ToolStripMenuItem backupAll = new ToolStripMenuItem {
@@ -50,10 +48,8 @@ namespace DynamicContextMenu {
       };
       backupAll.Click += (o, e) => {
         string workDir = SelectedItemPaths.First();
-        bool isGit = GitUtils.isGitDir(workDir);
-        if (isGit) {
-          CallBackupTool("git all " + workDir);
-        }
+        bool isGit = isGitDir(workDir);
+        CallBackupTool((isGit ? "git" : "svn") + " all " + workDir);
       };
 
       ToolStripMenuItem backupModified = new ToolStripMenuItem {
@@ -61,10 +57,8 @@ namespace DynamicContextMenu {
       };
       backupModified.Click += (o, e) => {
         string workDir = SelectedItemPaths.First();
-        bool isGit = GitUtils.isGitDir(workDir);
-        if (isGit) {
-          CallBackupTool("git modified " + workDir);
-        }
+        bool isGit = isGitDir(workDir);
+        CallBackupTool((isGit ? "git" : "svn") + " modified " + workDir);
       };
 
       ctxMenu.DropDownItems.Add(backup);
@@ -97,5 +91,24 @@ namespace DynamicContextMenu {
         MessageBox.Show("Failed to invoke " + BACKUP_TOOL);
       }
     }
+
+    private bool isGitDir(string path) {
+      DirectoryInfo di = new DirectoryInfo(path);
+      DirectoryInfo[] dirInfos = di.GetDirectories(".git");
+      if (dirInfos.Length > 0) return true;
+
+      if (di.Parent == null) return false;
+      return isGitDir(di.Parent.FullName);
+    }
+
+    private bool isSvnDir(string path) {
+      DirectoryInfo di = new DirectoryInfo(path);
+      DirectoryInfo[] dirInfos = di.GetDirectories(".svn");
+      if (dirInfos.Length > 0) return true;
+
+      if (di.Parent == null) return false;
+      return isSvnDir(di.Parent.FullName);
+    }
+
   }
 }
